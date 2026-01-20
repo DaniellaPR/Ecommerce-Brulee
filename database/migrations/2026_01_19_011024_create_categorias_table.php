@@ -7,16 +7,14 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('categorias', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre', 120);
-            $table->text('descripcion')->nullable();
-            $table->timestamps();
+        Schema::create('CATEGORIA', function (Blueprint $table) {
+            $table->string('CAT_CODIGO')->primary();
+            $table->string('CAT_DESCRIPCION');
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('categorias');
+        Schema::dropIfExists('CATEGORIA');
     }
 };

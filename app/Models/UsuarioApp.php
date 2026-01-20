@@ -9,29 +9,26 @@ class UsuarioApp extends Model
 {
     use HasFactory;
 
-    protected $table = 'usuarios_app';
+    protected $table = 'USUARIO_APP';
 
     protected $fillable = [
-        'nombre',
-        'cedula_cliente',
-        'contrasena',
-        'activo'
+        'usr_nombre',
+        'cli_cedula',
+        'usr_contrasena',
     ];
 
     protected $hidden = [
-        'contrasena'
+        'usr_contrasena'
     ];
 
-    protected $casts = [
-        'activo' => 'boolean'
-    ];
+
 
     /**
      * Relación: Un usuario_app pertenece a un cliente
      */
     public function cliente()
     {
-        return $this->belongsTo(Cliente::class, 'cedula_cliente', 'cedula');
+        return $this->belongsTo(Cliente::class, 'cli_cedula', 'cli_cedula');
     }
 
     /**
@@ -39,7 +36,7 @@ class UsuarioApp extends Model
      */
     public function setContrasenaAttribute($value)
     {
-        $this->attributes['contrasena'] = \Hash::make($value);
+        $this->attributes['usr_contrasena'] = \Hash::make($value);
     }
 
     /**
@@ -47,7 +44,7 @@ class UsuarioApp extends Model
      */
     public function verificarContrasena($clave)
     {
-        return \Hash::check($clave, $this->contrasena);
+        return \Hash::check($clave, $this->usr_contrasena);
     }
 
     /**

@@ -9,36 +9,42 @@ class Producto extends Model
 {
     use HasFactory;
 
+
+
+
+    protected $table = 'PRODUCTO';
+
+    // Clave primaria personalizada
+    protected $primaryKey = 'pro_codigo';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
-        'categoria_id',
-        'nombre',
-        'descripcion',
-        'precio',
-        'stock',
-        'imagen_url',
-        'alt_imagen',
-        'activo',
+        'pro_codigo',
+        'cat_codigo',
+        'cla_codigo',
+        'bod_codigo',
+        'pro_nombre',
+        'pro_descripcion',
+        'pro_existencia',
+        'pro_precio_venta_ant',
+        'pro_precio_venta',
+        'pro_utilidad',
+        'pro_imagen',
+        'pro_alt_imagen',
     ];
 
     protected $casts = [
-        'precio' => 'decimal:2',
-        'stock' => 'integer',
-        'activo' => 'boolean',
+        'pro_existencia'       => 'integer',
+        'pro_precio_venta_ant' => 'decimal:2',
+        'pro_precio_venta'     => 'decimal:2',
+        'pro_utilidad'         => 'decimal:2',
     ];
 
-    /**
-     * Relación: Un producto pertenece a una categoría
-     */
     public function categoria()
     {
-        return $this->belongsTo(Categoria::class, 'categoria_id');
+        return $this->belongsTo(Categoria::class, 'cat_codigo', 'cat_codigo');
     }
 
-    /**
-     * Scope: Productos activos
-     */
-    public function scopeActivos($query)
-    {
-        return $query->where('activo', true);
-    }
+
 }

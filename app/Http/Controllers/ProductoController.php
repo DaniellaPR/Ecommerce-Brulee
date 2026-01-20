@@ -28,9 +28,8 @@ class ProductoController extends Controller
         $producto = Producto::with('categoria')->findOrFail($id);
 
         // Obtener otros productos de la misma categoría
-        $productosSimilares = Producto::where('categoria_id', $producto->categoria_id)
-            ->where('id', '!=', $id)
-            ->activos()
+        $productosSimilares = Producto::where('cat_codigo', $producto->cat_codigo)
+            ->where('pro_codigo', '!=', $id)
             ->get();
 
         return view('productos.show', compact('producto', 'productosSimilares'));

@@ -24,7 +24,7 @@
             @foreach($categorias_destacadas as $index => $cat)
                 @if($cat->productos->first())
                     <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                        <img src="{{ $cat->productos->first()->imagen_url }}" class="d-block w-100" alt="{{ $cat->nombre }}">
+                        <img src="{{ $cat->productos->first()->pro_imagen }}" class="d-block w-100" alt="{{ $cat->cat_descripcion }}">
                         <div class="carousel-caption d-none d-md-block">
                             {{-- Caption vacío intencionalmente como en el legacy --}}
                         </div>
@@ -48,16 +48,16 @@
     <div id="ProductosFavoritos" class="row container mx-auto mt-5">
         @php
             // Productos específicos para la grilla "Favoritos" o destacados (Legacy usaba categorías, aquí usamos productos destacados)
-            $productos_favoritos = \App\Models\Producto::activos()->limit(4)->get();
+            $productos_favoritos = \App\Models\Producto::limit(4)->get();
         @endphp
         @foreach($productos_favoritos as $producto)
             <div class="col-md-3 mb-4">
-                <a href="{{ route('productos.show', $producto->id) }}" class="card h-100 shadow-sm text-decoration-none"
-                    aria-label="Ver detalle de {{ $producto->nombre }}">
-                    <img src="{{ $producto->imagen_url }}" class="card-img-top" alt="{{ $producto->nombre }}">
+                <a href="{{ route('productos.show', $producto->pro_codigo) }}" class="card h-100 shadow-sm text-decoration-none"
+                    aria-label="Ver detalle de {{ $producto->pro_nombre }}">
+                    <img src="{{ $producto->pro_imagen }}" class="card-img-top" alt="{{ $producto->pro_nombre }}">
                     <div class="card-body">
-                        <h2 class="card-title">{{ $producto->nombre }}</h2>
-                        <p class="card-text">{{ Str::limit($producto->descripcion, 50) }}</p>
+                        <h2 class="card-title">{{ $producto->pro_nombre }}</h2>
+                        <p class="card-text">{{ Str::limit($producto->pro_descripcion, 50) }}</p>
                     </div>
                 </a>
             </div>
@@ -77,17 +77,17 @@
 
         @foreach($categorias as $cat)
             @if($cat->productos->count() > 0)
-                <h2 class="Pagina mt-5 mb-3 text-center p-2">{{ $cat->nombre }}</h2>
+                <h2 class="Pagina mt-5 mb-3 text-center p-2">{{ $cat->cat_descripcion }}</h2>
                 <div class="row">
                     @foreach($cat->productos as $prod)
                         <div class="col-12 col-sm-6 col-md-3 mb-4 text-center">
-                            <a href="{{ route('productos.show', $prod->id) }}" class="text-decoration-none text-reset">
+                            <a href="{{ route('productos.show', $prod->pro_codigo) }}" class="text-decoration-none text-reset">
                                 <div class="card shadow-sm h-100">
                                     <img class="Imagen-producto img-fluid card-img-top" style="max-height: 350px;"
-                                        src="{{ $prod->imagen_url }}" alt="{{ $prod->nombre }}">
+                                        src="{{ $prod->pro_imagen }}" alt="{{ $prod->pro_nombre }}">
                                     <div class="card-body">
-                                        <h2 class="Titulo-producto mt-2 px-0">{{ $prod->nombre }}</h2>
-                                        <p>${{ number_format($prod->precio, 2) }}</p>
+                                        <h2 class="Titulo-producto mt-2 px-0">{{ $prod->pro_nombre }}</h2>
+                                        <p>${{ number_format($prod->pro_precio_venta, 2) }}</p>
                                     </div>
                                 </div>
                             </a>
