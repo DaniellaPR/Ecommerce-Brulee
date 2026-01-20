@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\ProductoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,21 @@ Route::get('/contacto', [HomeController::class, 'contacto'])->name('contacto');
 
 // Accesibilidad
 Route::get('/accesibilidad', [HomeController::class, 'accesibilidad'])->name('accesibilidad');
+
+/*
+|--------------------------------------------------------------------------
+| Rutas de Productos
+|--------------------------------------------------------------------------
+*/
+
+// Catálogo completo
+Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');
+
+// Detalle de producto
+Route::get('/productos/{id}', [ProductoController::class, 'show'])->name('productos.show');
+
+// Productos por categoría
+Route::get('/categoria/{id}', [ProductoController::class, 'porCategoria'])->name('productos.categoria');
 
 /*
 |--------------------------------------------------------------------------
@@ -54,5 +70,11 @@ Route::middleware(['auth.custom'])->group(function () {
 
     // Actualizar nombre
     Route::post('/perfil/actualizar-nombre', [PerfilController::class, 'actualizarNombre'])->name('perfil.actualizar.nombre');
+
+    // Verificar si tiene pedidos
+    Route::get('/perfil/verificar-pedidos', [PerfilController::class, 'verificarPedidos'])->name('perfil.verificar.pedidos');
+
+    // Eliminar cuenta
+    Route::delete('/perfil/eliminar-cuenta', [PerfilController::class, 'eliminarCuenta'])->name('perfil.eliminar.cuenta');
 
 });
