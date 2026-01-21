@@ -63,12 +63,6 @@ class AuthController extends Controller
                 ->withInput($request->except('clave'));
         }
 
-        // Verificar que esté activo
-        if (!$usuario->activo) {
-            return back()
-                ->withErrors(['general' => 'Tu cuenta está bloqueada. Contacta con el administrador.']);
-        }
-
         // Verificar contraseña
         if (!$usuario->verificarContrasena($request->clave)) {
             return back()
@@ -101,7 +95,7 @@ class AuthController extends Controller
     {
         // Validaciones
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|string|min:3|max:50|unique:usuarios_app,nombre',
+            'usr_nombre' => 'required|string|min:3|max:50|unique:usuarios_app,nombre',
             'correo' => [
                 'required',
                 'email',

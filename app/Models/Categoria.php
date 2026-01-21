@@ -9,9 +9,16 @@ class Categoria extends Model
 {
     use HasFactory;
 
+    protected $table = 'CATEGORIA';
+
+    // Clave primaria personalizada
+    protected $primaryKey = 'cat_codigo';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
-        'nombre',
-        'descripcion',
+        'cat_codigo',
+        'cat_descripcion',
     ];
 
     /**
@@ -19,6 +26,6 @@ class Categoria extends Model
      */
     public function productos()
     {
-        return $this->hasMany(Producto::class, 'categoria_id');
+        return $this->hasMany(Producto::class, 'cat_codigo', 'cat_codigo');
     }
 }

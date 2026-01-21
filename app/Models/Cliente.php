@@ -10,10 +10,10 @@ class Cliente extends Model
     use HasFactory;
 
     // Definir la tabla
-    protected $table = 'clientes';
+    protected $table = 'cliente';
 
     // La clave primaria no es 'id', es 'cedula'
-    protected $primaryKey = 'cedula';
+    protected $primaryKey = 'cli_cedula';
 
     // La clave primaria no es autoincremental
     public $incrementing = false;
@@ -23,9 +23,9 @@ class Cliente extends Model
 
     // Campos que se pueden asignar masivamente
     protected $fillable = [
-        'cedula',
-        'correo',
-        'telefono'
+        'cli_cedula',
+        'cli_correo',
+        'cli_telefono'
     ];
 
     // Campos ocultos (no se incluyen en JSON)
@@ -36,6 +36,6 @@ class Cliente extends Model
      */
     public function usuarioApp()
     {
-        return $this->hasOne(UsuarioApp::class, 'cedula_cliente', 'cedula');
+        return $this->hasOne(UsuarioApp::class, 'cli_cedula', 'cli_cedula');
     }
 }
